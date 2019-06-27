@@ -2,7 +2,9 @@ program subroutines
   use laplacian_mod
   implicit none
   ! TODO: define the arrays
-  integer :: nx, ny
+  integer, parameter :: dp = REAL64
+  real(dp), dimension(:,:), allocatable :: previous, current
+	integer :: nx, ny
 
   write (*,*) 'Give number of rows and columns for matrix A:'
   read (*,*) nx, ny
