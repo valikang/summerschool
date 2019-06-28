@@ -5,7 +5,7 @@
 int main(int argc, char *argv[])
 {
     int i, myid, ntasks;
-    int msgsize = 10000000;
+    int msgsize = 100;
     int *message;
     int *receiveBuffer;
     MPI_Status status;
@@ -30,16 +30,26 @@ int main(int argc, char *argv[])
 
     /* TODO start */
     /* Send and receive messages as defined in exercise */
-    if (myid < ntasks - 1) {
-        printf("Sender: %d. Sent elements: %d. Tag: %d. Receiver: %d\n",
-               myid, msgsize, myid + 1, myid + 1);
-    }
 
-    if (myid > 0) {
+    
 
-        printf("Receiver: %d. first element %d.\n",
+				printf("Just before");
+				if (myid == 0){
+
+					printf("My id is 0");
+					MPI_Sendrecv(message,msgsize,MPI_INTEGER,myid+1,myid+1,receiveBuffer,msgsize,MPI_INTEGER,ntasks-1,ntasks-1,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+				}else if  (myid == ntasks -1){
+					printf("My id is last");
+					MPI_Sendrecv(message,msgsize,MPI_INTEGER,0,0,receiveBuffer,msgsize,MPI_INTEGER,myid-1,myid-1,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+				}else {
+					printf("My id is in the middle");
+					MPI_Sendrecv(message,msgsize,MPI_INTEGER,myid+1,myid+1,receiveBuffer,msgsize,MPI_INTEGER,myid-1,myid-1,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+        }	
+
+
+				printf("Receiver: %d. first element %d.\n",
                myid, receiveBuffer[0]);
-    }
+    
     /* TODO end */
 
     /* Finalize measuring the time and print it out */

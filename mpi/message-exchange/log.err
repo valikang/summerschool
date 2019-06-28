@@ -1,0 +1,2 @@
+slurmstepd: error: *** JOB 1107788 ON login3 CANCELLED AT 2019-06-28T11:32:15 DUE TO TIME LIMIT ***
+aprun: Apid 8808981: Caught signal Terminated, sending to application

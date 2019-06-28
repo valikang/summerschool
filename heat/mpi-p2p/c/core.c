@@ -14,7 +14,7 @@ void exchange(field *temperature, parallel_data *parallel)
 
     /* TODO start: implement halo exchange */
     // Send to the up, receive from down
-
+		
     // Send to the down, receive from up
 
     /* TODO end */
