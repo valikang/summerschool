@@ -8,6 +8,7 @@ contains
 
     real, dimension(:,:), allocatable, intent(out) :: field
     character(len=*), intent(in) :: filename
+	  integer :: nx, ny,i,j	
 
     ! TODO: implement function that will:
     ! open the file
@@ -15,8 +16,16 @@ contains
     ! allocate matrix called field
     ! read rest of the file into field
     ! close the file
-
-
+	  open(10,file='bottle.dat',status='old')
+		read(10,fmt='(2x,2i4)') nx,ny
+		allocate(field(nx,ny))
+		do i=1,nx
+!			do j=1,ny
+				read(10,*) field(i,1:ny)
+!			enddo
+		enddo
+		close(10)
+		write(*,*)  field(:,:)
 
 
 

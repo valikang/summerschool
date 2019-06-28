@@ -66,6 +66,16 @@ contains
 
 
     ! TODO end
+		open(10,file=filename)
+		read(10,*) dummy, nx,ny
+
+		call set_field_dimensions(field0,nx,ny)
+
+		allocate(field0%data(0:field0%nx+1,0:field0%ny+1))
+		
+		do i =1,nx 
+			read(10, *) field0%data(i,1:ny)
+		end do
 
     ! Set the boundary values
     field0%data(1:nx,   0     ) = field0%data(1:nx, 1     )
