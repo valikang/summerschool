@@ -38,14 +38,14 @@ int main(int argc, char *argv[])
 		//MPI_Bcast(sendbuf,2*NTASKS,MPI_INTEGER,0,MPI_COMM_WORLD);
     //b)
 			//int scounts[4] = {1,1,2,4};
-		//	int displs[4] = {0,2,4,6};
-		//	MPI_Scatterv(sendbuf,scounts,displs,MPI_INTEGER,recvbuf,2,MPI_INTEGER,0,MPI_COMM_WORLD);
+			//int displs[4] = {0,2,4,6};
+			//MPI_Scatterv(sendbuf,scounts,displs,MPI_INTEGER,recvbuf,2,MPI_INTEGER,0,MPI_COMM_WORLD);
 			//	c) 
-			//int recvcounts[4] = {1,1,2,4};
-			//int displs[4] = {0,1,2,4};
-			//MPI_Gatherv(sendbuf,recvcounts[rank],MPI_INTEGER,recvbuf,recvcounts,displs,MPI_INTEGER,1,MPI_COMM_WORLD);
+			int recvcounts[4] = {1,1,2,4};
+			int displs[4] = {0,1,2,4};
+			MPI_Gatherv(sendbuf,recvcounts[rank],MPI_INTEGER,recvbuf,recvcounts,displs,MPI_INTEGER,1,MPI_COMM_WORLD);
 		//d)
-			MPI_Alltoall(sendbuf,2,MPI_INTEGER,recvbuf,2,MPI_INTEGER,MPI_COMM_WORLD);
+			//MPI_Alltoall(sendbuf,2,MPI_INTEGER,recvbuf,2,MPI_INTEGER,MPI_COMM_WORLD);
 
 		/* Print data that was received */
     /* TODO: add correct buffer */
