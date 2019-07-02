@@ -9,6 +9,7 @@
 
 void single_writer(int, int *, int);
 
+void many_writers(int, int*, int);
 
 int main(int argc, char *argv[])
 {
@@ -38,8 +39,8 @@ int main(int argc, char *argv[])
         localvector[i] = i + 1 + localsize * my_id;
     }
 
-    single_writer(my_id, localvector, localsize);
-
+    //single_writer(my_id, localvector, localsize);
+		many_writers(my_id,localvector,localsize);
     free(localvector);
 
     MPI_Finalize();
@@ -47,13 +48,57 @@ int main(int argc, char *argv[])
 }
 
 void single_writer(int my_id, int *localvector, int localsize)
+//MPI_Isend(buffer,count,datatype,dest,tag,comm,request);
+		//MPI_Irecv(buffer,count,datatype,source,tag,comm,request);
 {
     FILE *fp;
     int *fullvector;
-
+		
+		fullvector = (int *) malloc(DATASIZE * sizeof(int));
+		
+		MPI_Gather(localvector,localsize,MPI_INT,fullvector,localsize,MPI_INT,WRITER_ID,MPI_COMM_WORLD);	
+			
     /* TODO: Implement a function that will write the data to file so that
        a single process does the file io. Use rank WRITER_ID as the io rank */
+			
+		if(my_id == WRITER_ID) {
+	 		if((fp = fopen("singlewriter.dat", "wb"))==NULL) {
+				fprintf(stderr, "Error: %d (%s)\n", errno,strerror(errno));
+				MPI_Abort(MPI_COMM_WORLD,EXIT_FAILURE);
+			} else{
+					fwrite(fullvector, sizeof(int),DATASIZE, fp);
+					fclose(fp);
+					printf("Wrote %d elements to file singlewrite.dat\n", DATASIZE);
+
+
+			}
+
+		} 
+
+	
 
     free(fullvector);
 }
+
+void many_writers(int my_id, int * localvector, int localsize)
+{
+	FILE *fp;
+	char filename[64];
+
+	sprintf(filename,"manywriters-%d.dat",my_id);
+	
+	if ((fp = fopen(filename, "wb")) == NULL) {
+        fprintf(stderr, "Error: %d (%s)\n", errno, strerror(errno));
+        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
+    } else {
+        fwrite(localvector, sizeof(int), localsize, fp);
+        fclose(fp);
+        printf("Wrote %d elements to file manywriters-%d.dat\n", localsize,
+               my_id);
+    }
+
+
+
+}
+
 

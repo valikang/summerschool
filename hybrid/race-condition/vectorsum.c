@@ -19,9 +19,20 @@ int main(void)
 
     sum = 0.0;
     /* TODO: Parallelize computation */
+		/*
+		#pragma omp parallel  for shared(vecA) private(i) reduction(+:sum)
+
+		*/
+		#pragma omp parallel for shared(vecA,sum) private(i)	
     for (i = 0; i < NX; i++) {
+				#pragma omp critical(moro)
         sum += vecA[i];
+				
     }
+		
+			
+
+		
     printf("Sum: %ld\n", sum);
 
     return 0;

@@ -1,0 +1,11 @@
+MPI library supports MPI_THREAD_SERIALIZED
+MPI library supports MPI_THREAD_SERIALIZED
+mpi rank: 1  thread id: 2
+mpi rank: 1  thread id: 0
+mpi rank: 1  thread id: 3
+mpi rank: 1  thread id: 1
+mpi rank: 0  thread id: 3
+mpi rank: 0  thread id: 0
+mpi rank: 0  thread id: 1
+mpi rank: 0  thread id: 2
+Application 8835325 resources: utime ~0s, stime ~0s, Rss ~19204, inblocks ~8079, outblocks ~19539

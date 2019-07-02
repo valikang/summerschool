@@ -1,0 +1,9 @@
+I'm thread 3 in process 0
+I'm thread 2 in process 1
+I'm thread 2 in process 0
+I'm thread 1 in process 1
+I'm thread 0 in process 0
+I'm thread 3 in process 1
+I'm thread 0 in process 1
+I'm thread 1 in process 0
+Application 8835258 resources: utime ~0s, stime ~0s, Rss ~19068, inblocks ~8078, outblocks ~19533

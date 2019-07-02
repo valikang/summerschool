@@ -18,7 +18,24 @@ int main(void)
      *   Implement here a parallelized version of vector addition,
      *   vecC = vecA + vecB
      */
+		
+    /* TODO: Initialize MPI with thread support. */
+    /* TODO: Find out the MPI rank and thread ID of each thread and print
+     *       out the results. */
 
+    #pragma omp parallel
+    {
+
+    		#pragma omp for default(shared) private(i)
+				for(i=0;i<NX;i++){
+					vecC[i] = vecA[i] + vecB[i];
+
+					}
+    		//printf("I'm thread %d in process %d\n",omp_rank, my_id);
+
+
+
+    }
     sum = 0.0;
     /* Compute the check value */
     for (i = 0; i < NX; i++) {
