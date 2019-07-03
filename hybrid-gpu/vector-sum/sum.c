@@ -21,7 +21,14 @@ int main(void)
      * Implement vector addition on device with OpenACC
      * vecC = vecA + vecB
      */
+		
+		
+		#pragma acc  parallel loop
+	  for 	(i =0; i<NX; ++i){
 
+			vecC[i] = vecA[i]+vecB[i];
+
+		}
     /* Compute the check value */
     sum = 0.0;
     for (i = 0; i < NX; i++) {
